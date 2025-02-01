@@ -1,7 +1,6 @@
 class AppError extends Error {
   
   constructor(message, statusCode) {
-    console.log('....xxx');
     super(message); // calling parent which is Error now, and Error accepts message
 
     this.statusCode = statusCode;

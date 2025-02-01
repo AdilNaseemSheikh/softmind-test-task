@@ -35,7 +35,11 @@ exports.login = async (req, res, next) => {
 
     const user = await User.findOne({ email: email }).select('+password');
 
-    if (!user || !(await user.verifyPassword(password, user.password))) {
+    if (
+      !user ||
+      !(await user.verifyPassword(password, user.password)) ||
+      user.role !== role
+    ) {
       return next(new AppError('Incorrect email or password', 401));
     }
 

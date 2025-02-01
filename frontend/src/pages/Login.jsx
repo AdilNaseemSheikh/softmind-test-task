@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useLogin } from "../hooks/useLogin";
+import { ROLES } from "../constants";
 
 const LoginPage = () => {
   const {
@@ -9,8 +11,11 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
+  const { login } = useLogin();
+
   const onSubmit = (data) => {
     console.log("Form Data:", data);
+    login(data);
   };
 
   return (
@@ -20,23 +25,6 @@ const LoginPage = () => {
         className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-
-        {/* Name Field */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Name
-          </label>
-          <input
-            type="text"
-            {...register("name", { required: "Name is required" })}
-            className={`mt-1 p-2 w-full border rounded-md ${
-              errors.name ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-          )}
-        </div>
 
         {/* Email Field */}
         <div className="mb-4">
@@ -61,6 +49,24 @@ const LoginPage = () => {
           )}
         </div>
 
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Password
+          </label>
+          <input
+            type="password"
+            {...register("password", { required: "Password is required" })}
+            className={`mt-1 p-2 w-full border rounded-md ${
+              errors.password ? "border-red-500" : "border-gray-300"
+            }`}
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
+
         {/* Role Selection (Radio Buttons) */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700">
@@ -74,7 +80,7 @@ const LoginPage = () => {
               rules={{ required: "Role is required" }}
               render={({ field }) => (
                 <>
-                  {["User", "Admin", "Super-Admin"].map((role) => (
+                  {ROLES.map((role) => (
                     <label key={role} className="flex items-center">
                       <input
                         type="radio"
@@ -98,7 +104,7 @@ const LoginPage = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
+          className="w-full cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
         >
           Login
         </button>

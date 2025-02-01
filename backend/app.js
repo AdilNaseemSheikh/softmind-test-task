@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
@@ -17,6 +19,15 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+const corsOptions = {
+  origin: ['http://localhost:5173'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.status(200).send(markup);
