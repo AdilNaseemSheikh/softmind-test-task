@@ -7,6 +7,7 @@ const CreatePostForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -14,20 +15,21 @@ const CreatePostForm = () => {
 
   const { loading } = useSelector((state) => state.posts);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const newPost = {
       title: data.title,
       content: data.content,
       thumbnail: data.thumbnail || "https://via.placeholder.com/150",
     };
-    addAPost(newPost);
+    await addAPost(newPost);
+    reset();
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+        className="bg-white p-8 rounded-lg shadow-md w-full mx-5 sm:max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Add New Post</h2>
 
@@ -76,7 +78,7 @@ const CreatePostForm = () => {
             {...register("thumbnail", {
               required: "Thumnbail URL is required",
               pattern: {
-                value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i,
+                value: /^(https?:\/\/.*\.)/i,
                 message: "Please enter a valid image URL",
               },
             })}

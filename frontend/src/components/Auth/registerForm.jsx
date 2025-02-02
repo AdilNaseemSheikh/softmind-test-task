@@ -8,15 +8,18 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const { addAUser } = useUsers();
 
   const { loading } = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.auth);
 
-  const onSubmit = (data) => {
-    addAUser(data);
+  const onSubmit = async (data) => {
+    await addAUser(data);
+    reset();
   };
 
   const selectedRole = watch("role");
@@ -25,7 +28,7 @@ const RegisterForm = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+        className="bg-white p-4 sm:p-8 rounded-lg shadow-md mx-5 w-full sm:max-w-md max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">
           Register a Member
@@ -95,9 +98,14 @@ const RegisterForm = () => {
             }`}
           >
             <option value="">Select a role</option>
-            <option value="admin">Admin</option>
-            <option value="super-admin">Super Admin</option>
             <option value="user">User</option>
+
+            {user?.user?.role === "super-admin" && (
+              <>
+                <option value="admin">Admin</option>
+                <option value="super-admin">Super Admin</option>
+              </>
+            )}
           </select>
           {errors.role && (
             <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>

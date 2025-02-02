@@ -1,7 +1,10 @@
 const Post = require('../models/postModel');
 
 exports.getPosts = async (req, res, next) => {
-  const posts = await Post.find({});
+  const posts = await Post.find({}).populate({
+    path: 'author',
+    select: 'name email',
+  });
 
   try {
     res.status(200).json({

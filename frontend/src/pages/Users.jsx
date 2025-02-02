@@ -19,7 +19,7 @@ const UserList = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md mx-5 w-full sm:max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-center">User List</h2>
         <div className="space-y-4">
           {users.map((user, i) => (
@@ -41,7 +41,7 @@ const UserList = () => {
               </div>
               <button
                 onClick={() => navigate(`/posts/${user.id}`)}
-                className="bg-blue-500 cursor-pointer text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                className="bg-blue-500 cursor-pointer text-white py-1 px-2 rounded-md hover:bg-blue-600 sm:py-2 sm:px-4 text-sm sm:text-lg"
               >
                 View Detail
               </button>

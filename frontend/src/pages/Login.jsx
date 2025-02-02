@@ -34,7 +34,7 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+        className="bg-white p-4 sm:p-8 rounded-lg shadow-md max-w-md mx-5 w-full sm:max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 

@@ -13,7 +13,9 @@ router
   .get(getUsers)
   .post(protect, restrictTo(['admin', 'super-admin']), createUser);
 
-router.route('/create-super-admin').post(createSuperAdmin);
+router
+  .route('/create-super-admin')
+  .post(protect, restrictTo(['super-admin']), createSuperAdmin);
 
 router.route('/:userId').get(getAUser);
 

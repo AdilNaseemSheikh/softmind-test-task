@@ -1,11 +1,13 @@
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { addPost, setLoading, setPosts } from "../redux/slices/postsSlice";
 import { BASE_URL } from "../constants";
 
 export const usePosts = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getPosts = async () => {
     try {
@@ -51,8 +53,8 @@ export const usePosts = () => {
       if (!res.ok) throw new Error(data.message);
 
       toast.success("Post Created");
-
       dispatch(addPost(data.post));
+      navigate("/");
     } catch (error) {
       toast.error(error.message || "Something went wrong while fetching posts");
     } finally {

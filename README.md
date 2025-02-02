@@ -1,8 +1,33 @@
-# React + Vite
+# 🌟 Role-Based Access Control System (RBAC)  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project implements a **Role-Based Access Control (RBAC) System** with three user roles:  
 
-Currently, two official plugins are available:
+- **Super Admin** 🏆 – Has access to register user, admin and other super-admins.  
+- **Admin** 🔧 – Has access to register user and view their posts.
+- **User** 👤 – Can access posts and create posts functionality.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The system consists of two parts:  
+
+- **Backend** ⚙️ – Manages authentication, roles, and permissions.  
+- **Frontend** 🎨 – Provides the user interface for interacting with the system.  
+
+## 🚀 Getting Started  
+
+### 1️⃣ Backend Setup  
+
+Navigate to the backend folder and start the server:  
+
+```sh
+cd backend  
+npm install  
+npm run server  
+```
+### 1️⃣ Frontend Setup  
+
+Navigate to the frontend folder and start the app:  
+
+```sh
+cd frontend  
+npm install  
+npm run dev  
+```

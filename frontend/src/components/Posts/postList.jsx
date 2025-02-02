@@ -50,8 +50,10 @@ const PostsList = () => {
                     : post.content}
                 </p>
                 <div className="flex items-center text-sm text-gray-500">
-                  <span className="mr-4">By {post.author}</span>
-                  <span>{post.date}</span>
+                  <span className="mr-4">
+                    By: <b>{post?.author?.name}</b>
+                  </span>
+                  <span>{new Date(post.createdAt).toDateString()}</span>
                 </div>
               </div>
             </div>

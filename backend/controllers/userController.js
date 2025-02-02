@@ -44,6 +44,11 @@ exports.createUser = async (req, res, next) => {
         400,
       );
 
+    if (req?.user?.role === 'admin' && role === 'admin')
+      return next(
+        new AppError('You do not have permission to perform this action.', 403),
+      );
+
     const user = await User.create({
       name,
       email,

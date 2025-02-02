@@ -57,7 +57,7 @@ export const useUsers = () => {
 
       toast.success("Member Added");
 
-      dispatch(addUser(data.users));
+      dispatch(addUser(data.user));
     } catch (error) {
       toast.error(
         error.message || "Something went wrong while Adding a member"
