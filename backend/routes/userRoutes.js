@@ -5,13 +5,16 @@ const {
   getAUser,
   createSuperAdmin,
 } = require('../controllers/userController');
+const { protect, restrictTo } = require('../controllers/authController');
 const router = express.Router();
 
-router.route('/').get(getUsers).post(createUser);
+router
+  .route('/')
+  .get(getUsers)
+  .post(protect, restrictTo(['admin', 'super-admin']), createUser);
+
 router.route('/create-super-admin').post(createSuperAdmin);
 
 router.route('/:userId').get(getAUser);
-
-// router.route('/:userId').patch().delete();
 
 module.exports = router;

@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { logout } = useLogout();
+
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <nav className="bg-blue-500 p-4">
@@ -22,30 +25,53 @@ const Navbar = () => {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/users"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-white font-bold"
-                  : "text-gray-200 hover:text-white"
-              }
-            >
-              Users
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-white font-bold"
-                  : "text-gray-200 hover:text-white"
-              }
-            >
-              Add a Member
-            </NavLink>
-          </li>
+
+          {/* {user?.user?.role === "admin" && (
+            <>
+              <li>
+                <NavLink
+                  to="/users"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-white font-bold"
+                      : "text-gray-200 hover:text-white"
+                  }
+                >
+                  Users
+                </NavLink>
+              </li>
+            </>
+          )} */}
+
+          {user?.user?.role === "admin" && (
+            <li>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-200 hover:text-white"
+                }
+              >
+                Add a Member
+              </NavLink>
+            </li>
+          )}
+
+          {user?.user?.role === "user" && (
+            <li>
+              <NavLink
+                to="/create-post"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-200 hover:text-white"
+                }
+              >
+                Create Post
+              </NavLink>
+            </li>
+          )}
 
           <li>
             <button

@@ -15,7 +15,9 @@ router
 
 router.route('/:postId').get(getAPost);
 
-router.route('/user/:userId').get(getPostsByUser);
+router
+  .route('/user/:userId')
+  .get(protect, restrictTo(['admin']), getPostsByUser);
 
 // router.route('/:postId').patch().delete();
 
