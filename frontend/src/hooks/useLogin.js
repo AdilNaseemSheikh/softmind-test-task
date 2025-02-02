@@ -31,7 +31,7 @@ export const useLogin = () => {
 
       if (!res.ok) throw new Error(data.message);
 
-      dispatch(setUser(data));
+      dispatch(setUser({ user: data.data.user, isAuthenticated: true }));
 
       navigate("/");
     } catch (error) {
