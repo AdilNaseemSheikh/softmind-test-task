@@ -16,7 +16,6 @@ const RegisterForm = () => {
   const { loading } = useSelector((state) => state.users);
 
   const onSubmit = (data) => {
-    console.log("User Registered:", data);
     addAUser(data);
   };
 

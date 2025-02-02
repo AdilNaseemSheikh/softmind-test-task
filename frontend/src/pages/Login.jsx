@@ -25,7 +25,6 @@ const LoginPage = () => {
   }, [user?.isAuthenticated, loading]);
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
     login(data);
   };
 
