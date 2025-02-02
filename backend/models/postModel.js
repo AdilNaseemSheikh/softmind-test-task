@@ -6,8 +6,8 @@ const postSchema = mongoose.Schema(
       type: String,
       required: [true, 'A post must have a title'],
       maxLength: [
-        20,
-        'A post title must have less than or equal to 20 characters',
+        35,
+        'A post title must have less than or equal to 35 characters',
       ],
       minLength: [3, 'A post title must have at least 3 characters'],
     },

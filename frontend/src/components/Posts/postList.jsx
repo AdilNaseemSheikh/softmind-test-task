@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { usePosts } from "../../hooks/usePosts";
+import Loader from "../Global/Loader";
 
 const PostsList = () => {
-  const posts = useSelector((state) => state.posts.posts);
+  const { posts, loading } = useSelector((state) => state.posts);
+
+  const { getPosts } = usePosts();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="flex items-center justify-center min-h-screen">

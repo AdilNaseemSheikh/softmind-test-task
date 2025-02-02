@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-// import { addPost } from "../redux/postSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { usePosts } from "../../hooks/usePosts";
 
 const CreatePostForm = () => {
   const {
@@ -10,19 +10,17 @@ const CreatePostForm = () => {
     formState: { errors },
   } = useForm();
 
-  // const dispatch = useDispatch();
+  const { addAPost } = usePosts();
+
+  const { loading } = useSelector((state) => state.posts);
 
   const onSubmit = (data) => {
     const newPost = {
-      id: Date.now(),
       title: data.title,
       content: data.content,
       thumbnail: data.thumbnail || "https://via.placeholder.com/150",
-      author: "Anonymous",
-      date: new Date().toISOString().split("T")[0],
     };
-    // dispatch(addPost(newPost));
-    alert("Post added successfully!");
+    addAPost(newPost);
   };
 
   return (
@@ -38,6 +36,7 @@ const CreatePostForm = () => {
             Title
           </label>
           <input
+            disabled={loading}
             type="text"
             {...register("title", { required: "Title is required" })}
             className={`mt-1 p-2 w-full border rounded-md ${
@@ -72,6 +71,7 @@ const CreatePostForm = () => {
             Thumbnail URL
           </label>
           <input
+            disabled={loading}
             type="url"
             {...register("thumbnail", {
               required: "Thumnbail URL is required",
@@ -92,10 +92,11 @@ const CreatePostForm = () => {
         </div>
 
         <button
+          disabled={loading}
           type="submit"
           className="w-full cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
         >
-          Add Post
+          {loading ? "submitting..." : "Add Post"}
         </button>
       </form>
     </div>

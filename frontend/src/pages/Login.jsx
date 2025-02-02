@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useLogin } from "../hooks/useLogin";
 import { ROLES } from "../constants";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Loader from "../components/Global/Loader";
 
 const LoginPage = () => {
   const {
@@ -11,12 +14,22 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const { login } = useLogin();
+  const { user, loading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (loading) return;
+    if (user?.isAuthenticated) navigate("/");
+  }, [user?.isAuthenticated, loading]);
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
     login(data);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

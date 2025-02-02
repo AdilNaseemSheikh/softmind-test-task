@@ -20,7 +20,7 @@ export const useAuth = () => {
 
       if (!res.ok) throw new Error(data.message);
 
-      dispatch(setUser({ user: data, loading: false }));
+      dispatch(setUser(data));
     } catch (error) {
       toast.error(error.message || "Unable to get users data");
     } finally {

@@ -83,6 +83,7 @@ exports.isLoggedIn = async (req, res, next) => {
 
 exports.restrictTo = (roles = []) => {
   return (req, res, next) => {
+    console.log(req.user);
     if (!roles.includes(req.user.role))
       next(
         new AppError('You do not have permission to perform this action.', 403),
@@ -125,6 +126,18 @@ exports.protect = async (req, res, next) => {
 
     req.user = user;
     next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.logout = async (req, res, next) => {
+  try {
+    res.cookie('jwt', '', {
+      maxAge: 0,
+    });
+
+    res.status(200).json({ status: 'success' });
   } catch (error) {
     next(error);
   }

@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import Loader from "../components/Global/Loader";
+import { useUsers } from "../hooks/useUsers";
+import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
-  const users = useSelector((state) => state.users.users);
+  const { users, loading } = useSelector((state) => state.users);
+
+  const { getUsers } = useUsers();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-center">User List</h2>
         <div className="space-y-4">
-          {users.map((user) => (
+          {users.map((user, i) => (
             <div
               key={user.id}
               className="flex justify-between items-center p-4 border border-gray-200 rounded-lg"
@@ -17,7 +30,7 @@ const UserList = () => {
               <div className="flex items-center space-x-4">
                 {/* Add Pravatar */}
                 <img
-                  src={`https://i.pravatar.cc/150?img=${user.id}`}
+                  src={`https://i.pravatar.cc/150?img=${i}`}
                   alt={user.name}
                   className="w-12 h-12 rounded-full"
                 />
@@ -27,7 +40,7 @@ const UserList = () => {
                 </div>
               </div>
               <button
-                onClick={() => alert(`Viewing details for ${user.name}`)}
+                onClick={() => navigate(`/posts/${user.id}`)}
                 className="bg-blue-500 cursor-pointer text-white py-2 px-4 rounded-md hover:bg-blue-600"
               >
                 View Detail
